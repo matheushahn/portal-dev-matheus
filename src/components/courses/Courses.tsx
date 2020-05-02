@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableRow, TableCell, TableColumn, Panel, TitleLevel } from '@ui5/webcomponents-react';
+import { Table, TableRow, TableCell, TableColumn, Panel, TitleLevel, Title } from '@ui5/webcomponents-react';
 import { Course } from '../../interfaces/Course';
 import { useHistory } from 'react-router-dom';
 
@@ -12,13 +12,13 @@ export const Courses: React.FC = () => {
 
     const [courseArray, setCourseArray] = useState<Array<Course>>([])
 
-    const updateCoursesInLocalStorage = () => {
-        window.localStorage.setItem("courses", JSON.stringify(courseArray));
+    const updateCoursesInLocalStorage = (courses: Array<Course>) => {
+        window.localStorage.setItem("courses", JSON.stringify(courses));
     }
 
     const initCoursesFromLocalStorage = () => {
         if (!window.localStorage.getItem("courses")) {
-            setCourseArray([{
+            let courses = [{
                 id: 1,
                 name: 'Dev 1', 
                 date: 'Terça-feira', 
@@ -40,7 +40,7 @@ export const Courses: React.FC = () => {
                 }
             }, {
                 id: 3,
-                name: 'Dev para Web', 
+                name: 'Dev 3', 
                 date: 'Sexta-feira', 
                 teacher: "Professor 3", 
                 enrolled: false,
@@ -50,7 +50,7 @@ export const Courses: React.FC = () => {
                 }
             }, {
                 id: 4,
-                name: 'Dev 3', 
+                name: 'Dev para Web', 
                 date: 'Quinta-feira', 
                 teacher: "Professor 4", 
                 enrolled: false,
@@ -68,8 +68,9 @@ export const Courses: React.FC = () => {
                     description: "Basic Description", 
                     workload: 60
                 }
-            }]);
-            updateCoursesInLocalStorage();
+            }];
+            setCourseArray(courses);
+            updateCoursesInLocalStorage(courses);
         } else {
             setCourseArray(JSON.parse(window.localStorage.getItem("courses") || ""));
         }
@@ -81,32 +82,32 @@ export const Courses: React.FC = () => {
     };
 
     return (
-        <Panel headerText={'Cursos Disponíveis'} headerLevel={TitleLevel.H2}>
-            <div style={{margin: '0 2rem'}}>
-                <Table
-                    no-data-text={'Sem dados'}
-                    show-no-data
-                    onRowClick={onCourseClick}
-                    columns={[
-                        <TableColumn key="id">#</TableColumn>,
-                        <TableColumn key="name">Nome</TableColumn>,
-                        <TableColumn key="date">Dia</TableColumn>,
-                        <TableColumn key="teacher">Professor</TableColumn>,
-                        <TableColumn key="enrolled">Matriculado</TableColumn>,
-                    ]}
-                >
-                    {courseArray.map((course) => (
-                        <TableRow key={course.id} id={course.id.toString()}>
-                            <TableCell>{course.id}</TableCell>
-                            <TableCell>{course.name}</TableCell>
-                            <TableCell>{course.date}</TableCell>
-                            <TableCell>{course.date}</TableCell>
-                            <TableCell>{course.enrolled ? "Sim" : "Não"}</TableCell>
-                        </TableRow>
-                    ))}
-                </Table>            
-            </div>
-        </Panel>
+        <div style={{margin: '0 2rem'}}>
+            <Title level={TitleLevel.H3}>Cursos Disponíveis</Title>
+            <Table
+                no-data-text={'Sem dados'}
+                show-no-data
+                style={{marginTop:'1rem'}}
+                onRowClick={onCourseClick}
+                columns={[
+                    <TableColumn key="id">#</TableColumn>,
+                    <TableColumn key="name">Nome</TableColumn>,
+                    <TableColumn key="date">Dia</TableColumn>,
+                    <TableColumn key="teacher">Professor</TableColumn>,
+                    <TableColumn key="enrolled">Matriculado</TableColumn>,
+                ]}
+            >
+                {courseArray.map((course) => (
+                    <TableRow key={course.id} id={course.id.toString()}>
+                        <TableCell>{course.id}</TableCell>
+                        <TableCell>{course.name}</TableCell>
+                        <TableCell>{course.date}</TableCell>
+                        <TableCell>{course.date}</TableCell>
+                        <TableCell>{course.enrolled ? "Sim" : "Não"}</TableCell>
+                    </TableRow>
+                ))}
+            </Table>            
+        </div>
     );
 
 }
