@@ -2,11 +2,14 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  useParams
 } from "react-router-dom";
 import { Home } from './components/home/Home';
 import { BaseLayout } from './components/shared/BaseLayout';
 import { Profile } from './components/profile/Profile';
+import { ThemeProvider } from '@ui5/webcomponents-react';
+import { CourseDetails } from './components/courses/details/CourseDetails';
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -20,14 +23,17 @@ import { Profile } from './components/profile/Profile';
 export default function BasicExample() {
   return (
     <Router>
-      <BaseLayout>
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/profile" component={Profile}/>
-          </Switch>
-        </div>
-      </BaseLayout>
+      <ThemeProvider>
+        <BaseLayout>
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/profile" component={Profile}/>
+              <Route path="/course/:id" component={CourseDetails} />
+            </Switch>
+          </div>
+        </BaseLayout>
+      </ThemeProvider>
     </Router>
   );
 }
