@@ -63,7 +63,7 @@ export const Profile: React.FC<ProfileProps> = (props: ProfileProps) => {
     };
 
     return (
-        <div>
+        <div style={{margin: '2rem', backgroundColor: 'white'}}>
             {!props.hideTitle && <Title style={{ padding: "15px" }}>Dados Pessoais</Title>}
             <Form title={""}>
                 <FormGroup title={""}>
