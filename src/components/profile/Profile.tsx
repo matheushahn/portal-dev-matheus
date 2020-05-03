@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Title,
     Form,
@@ -10,10 +10,17 @@ import {
     ButtonDesign,
     ValueState,
 } from "@ui5/webcomponents-react";
-import { ProfileInterface } from "../../interfaces/Profile";
+import { ProfileProps } from "../../interfaces/Profile";
 
-export const Profile: React.FC<ProfileInterface> = (props: ProfileInterface) => {
-    
+export const Profile: React.FC<ProfileProps> = (props: ProfileProps) => {
+    useEffect(() => {
+        let name: any = window.localStorage.getItem("name");
+        let age: any = window.localStorage.getItem("age");
+
+        setNameInputValue(name);
+        setAgeInputValue(age);
+    }, [])
+
     const getNameFromLocalStorage = (): string | undefined => {
         const name = window.localStorage.getItem("name");
         return name ? name : undefined;
@@ -57,7 +64,7 @@ export const Profile: React.FC<ProfileInterface> = (props: ProfileInterface) => 
 
     return (
         <div>
-            <Title style={{ padding: "15px" }}>Dados Pessoais</Title>
+            {!props.hideTitle && <Title style={{ padding: "15px" }}>Dados Pessoais</Title>}
             <Form title={""}>
                 <FormGroup title={""}>
                     <FormItem label={"Nome"}>
@@ -66,6 +73,7 @@ export const Profile: React.FC<ProfileInterface> = (props: ProfileInterface) => 
                             onInput={onNameChange}
                             placeholder={"Digite seu nome..."}
                             required
+                            value={nameInputValue}
                             valueState={nameState}
                         />
                     </FormItem>
@@ -75,6 +83,7 @@ export const Profile: React.FC<ProfileInterface> = (props: ProfileInterface) => 
                             onInput={onAgeChange}
                             placeholder={"Digite sua idade..."}
                             required
+                            value={ageInputValue}
                             valueState={ageState}
                         />
                     </FormItem>

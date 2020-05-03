@@ -9,6 +9,7 @@ import { BaseLayout } from './components/shared/BaseLayout';
 import { Profile } from './components/profile/Profile';
 import { ThemeProvider } from '@ui5/webcomponents-react';
 import { CourseDetails } from './components/courses/details/CourseDetails';
+import { Settings } from './components/settings/Settings';
 
 export default function BasicExample() {
   return (
@@ -18,8 +19,9 @@ export default function BasicExample() {
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/profile" component={Profile}/>
               <Route path="/course/:id" component={CourseDetails} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/profile" component={Profile}/>
             </Switch>
           </div>
         </BaseLayout>

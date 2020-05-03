@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ButtonDesign, Title, FlexBox, FlexBoxAlignItems } from '@ui5/webcomponents-react';
+import { Button, ButtonDesign, Title, FlexBox, FlexBoxAlignItems, Panel, Card } from '@ui5/webcomponents-react';
 import { Courses } from '../courses/Courses';
 import { Profile } from '../profile/Profile';
 
@@ -12,6 +12,7 @@ export const Home: React.FC = () => {
 
     const onRemoveDataPress = (event: any) => {
       window.localStorage.removeItem("name");
+      window.localStorage.removeItem("age");
       setName(undefined);
     }
 
@@ -21,7 +22,7 @@ export const Home: React.FC = () => {
 
     return (
       name ?
-      <div>
+      <div style={{margin: '2rem', backgroundColor: 'white'}}>
         <FlexBox alignItems={FlexBoxAlignItems.Center}>
           <Title style={{padding: '1rem'}}>Olá {name}!</Title>
           <Button design={ButtonDesign.Negative} onClick={onRemoveDataPress}>Não sou eu</Button>

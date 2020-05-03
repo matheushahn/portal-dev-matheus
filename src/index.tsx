@@ -15,6 +15,13 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+const configureBackgroundColor = () => {
+  let color = window.localStorage.getItem("backgroundColor") || "#f8f8f8";
+  document.body.style.backgroundColor = color;
+};
+
+configureBackgroundColor();
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
