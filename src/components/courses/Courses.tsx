@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableRow, TableCell, TableColumn, Panel, TitleLevel, Title } from '@ui5/webcomponents-react';
+import { Table, TableRow, TableCell, TableColumn, TitleLevel, Title, Icon } from '@ui5/webcomponents-react';
 import { Course } from '../../interfaces/Course';
 import { useHistory } from 'react-router-dom';
+import "@ui5/webcomponents-icons/dist/icons/navigation-right-arrow";
 
 export const Courses: React.FC = () => {
     let history = useHistory();
@@ -89,16 +90,18 @@ export const Courses: React.FC = () => {
                 show-no-data
                 style={{marginTop:'1rem'}}
                 onRowClick={onCourseClick}
-                columns={[
-                    <TableColumn key="id">#</TableColumn>,
-                    <TableColumn key="name">Nome</TableColumn>,
-                    <TableColumn key="date">Dia</TableColumn>,
-                    <TableColumn key="teacher">Professor</TableColumn>,
-                    <TableColumn key="enrolled">Matriculado</TableColumn>,
-                ]}
+                columns={
+                    <>
+                        <TableColumn key="id">#</TableColumn>
+                        <TableColumn key="name">Nome</TableColumn>
+                        <TableColumn key="date">Dia</TableColumn>
+                        <TableColumn key="teacher">Professor</TableColumn>
+                        <TableColumn key="enrolled">Matriculado</TableColumn>
+                    </>
+                }
             >
                 {courseArray.map((course) => (
-                    <TableRow key={course.id} id={course.id.toString()}>
+                    <TableRow style={{cursor: "pointer"}} key={course.id} id={course.id.toString()}>
                         <TableCell>{course.id}</TableCell>
                         <TableCell>{course.name}</TableCell>
                         <TableCell>{course.date}</TableCell>
